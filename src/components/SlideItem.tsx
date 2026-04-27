@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ExternalLink, Info } from 'lucide-react';
 
 interface SlideProps {
   title: string;
@@ -15,48 +15,57 @@ interface SlideProps {
 
 const SlideItem = ({ title, description, image, link, tag, isActive }: SlideProps) => {
   return (
-    <div className="relative w-full h-[85vh] min-h-[600px] flex items-center overflow-hidden bg-gray-900">
-      {/* Background Image with Overlay */}
+    <div className="relative w-full h-[85vh] min-h-[650px] flex items-center justify-center overflow-hidden bg-gray-950">
+      {/* Background Image with Enhanced Visibility */}
       <div className="absolute inset-0 z-0">
         <img 
           src={image} 
           alt={title}
           className={`w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${isActive ? 'scale-110' : 'scale-100'}`}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+        {/* Multi-layered overlay for better text readability and professional depth */}
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className={`max-w-2xl transition-all duration-1000 delay-300 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-white uppercase bg-primary/80 backdrop-blur-sm rounded-full">
+      {/* Centralized Content */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center">
+        <div className={`transition-all duration-1000 delay-300 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <span className="inline-block px-5 py-2 mb-8 text-xs font-bold tracking-[0.2em] text-white uppercase bg-primary/90 backdrop-blur-md rounded-full shadow-xl">
             {tag}
           </span>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+          
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-[1.1] tracking-tight drop-shadow-2xl">
             {title}
           </h1>
-          <p className="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed max-w-xl">
+          
+          <p className="text-xl md:text-2xl text-gray-100 mb-12 leading-relaxed max-w-2xl mx-auto font-medium drop-shadow-lg">
             {description}
           </p>
-          <div className="flex flex-wrap gap-4">
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Button 
               size="lg" 
-              className="rounded-full px-8 py-7 text-lg group bg-white text-black hover:bg-primary hover:text-white transition-all duration-300"
+              className="w-full sm:w-auto rounded-full px-10 py-8 text-xl font-bold bg-white text-black hover:bg-primary hover:text-white transition-all duration-300 hover:scale-110 active:scale-95 shadow-2xl group"
               onClick={() => window.open(link, '_blank')}
             >
               View Project
-              <ExternalLink className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ExternalLink className="ml-3 w-6 h-6 group-hover:rotate-12 transition-transform" />
             </Button>
+            
             <Button 
-              variant="outline" 
               size="lg" 
-              className="rounded-full px-8 py-7 text-lg border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
+              className="w-full sm:w-auto rounded-full px-10 py-8 text-xl font-bold bg-primary text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-110 active:scale-95 shadow-2xl group"
             >
               Learn More
+              <Info className="ml-3 w-6 h-6 group-hover:scale-110 transition-transform" />
             </Button>
           </div>
         </div>
       </div>
+
+      {/* Decorative element for unique look */}
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent z-10" />
     </div>
   );
 };
