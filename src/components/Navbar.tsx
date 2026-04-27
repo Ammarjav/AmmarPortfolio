@@ -15,7 +15,7 @@ const Navbar = () => {
             <div className="bg-primary p-2 rounded-xl">
               <Code2 className="text-white w-6 h-6" />
             </div>
-            <span className="text-xl font-bold tracking-tight text-gray-900">Ammar.</span>
+            <span className="text-lg md:text-xl font-bold tracking-tight text-gray-900">Muhammad Ammar Javed</span>
           </div>
           
           <div className="hidden md:flex items-center space-x-8">

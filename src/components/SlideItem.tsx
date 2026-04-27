@@ -28,8 +28,8 @@ const SlideItem = ({ title, description, image, link, tag, isActive }: SlideProp
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
       </div>
 
-      {/* Centralized Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center">
+      {/* Centralized Content - Shifted Upward */}
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center -mt-24 md:-mt-32">
         <div className={`transition-all duration-1000 delay-300 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
           <span className="inline-block px-5 py-2 mb-8 text-xs font-bold tracking-[0.2em] text-white uppercase bg-primary/90 backdrop-blur-md rounded-full shadow-xl">
             {tag}
