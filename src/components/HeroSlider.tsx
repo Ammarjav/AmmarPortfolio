@@ -56,7 +56,7 @@ const HeroSlider = () => {
     
     const intervalId = setInterval(() => {
       emblaApi.scrollNext();
-    }, 5000); // Auto-rotate every 5 seconds as requested
+    }, 5000);
 
     return () => {
       clearInterval(intervalId);
@@ -79,32 +79,32 @@ const HeroSlider = () => {
         </div>
       </div>
 
-      {/* Navigation Arrows - Professional Glassmorphism Style */}
+      {/* Navigation Arrows - Responsive Sizing */}
       <button 
         onClick={scrollPrev}
-        className="absolute left-8 top-1/2 -translate-y-1/2 z-30 p-5 rounded-full bg-white/10 backdrop-blur-xl text-white border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-white hover:text-black hover:scale-110"
+        className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-30 p-2 md:p-5 rounded-full bg-white/10 backdrop-blur-xl text-white border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-white hover:text-black hover:scale-110"
         aria-label="Previous slide"
       >
-        <ChevronLeft size={32} strokeWidth={2.5} />
+        <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2.5} />
       </button>
       <button 
         onClick={scrollNext}
-        className="absolute right-8 top-1/2 -translate-y-1/2 z-30 p-5 rounded-full bg-white/10 backdrop-blur-xl text-white border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-white hover:text-black hover:scale-110"
+        className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-30 p-2 md:p-5 rounded-full bg-white/10 backdrop-blur-xl text-white border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-white hover:text-black hover:scale-110"
         aria-label="Next slide"
       >
-        <ChevronRight size={32} strokeWidth={2.5} />
+        <ChevronRight className="w-6 h-6 md:w-8 md:h-8" strokeWidth={2.5} />
       </button>
 
-      {/* Dots Navigation - Modern Bar Style */}
-      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-30 flex gap-4">
+      {/* Dots Navigation */}
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-30 flex gap-3 md:gap-4">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => scrollTo(index)}
-            className={`h-2 transition-all duration-700 rounded-full shadow-lg ${
+            className={`h-1.5 md:h-2 transition-all duration-700 rounded-full shadow-lg ${
               selectedIndex === index 
-                ? 'w-16 bg-white' 
-                : 'w-4 bg-white/30 hover:bg-white/60'
+                ? 'w-10 md:w-16 bg-white' 
+                : 'w-3 md:w-4 bg-white/30 hover:bg-white/60'
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />
