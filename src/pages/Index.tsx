@@ -4,7 +4,6 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSlider from '@/components/HeroSlider';
 import Footer from '@/components/Footer';
-import { MadeWithDyad } from "@/components/made-with-dyad";
 import { Code, HeartPulse, Layout, Sparkles } from 'lucide-react';
 
 const Index = () => {
@@ -81,7 +80,6 @@ const Index = () => {
       </main>
 
       <Footer />
-      <MadeWithDyad />
     </div>
   );
 };
