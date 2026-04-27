@@ -56,7 +56,7 @@ const HeroSlider = () => {
     
     const intervalId = setInterval(() => {
       emblaApi.scrollNext();
-    }, 3000); // Auto-rotate every 3 seconds as requested
+    }, 5000); // Auto-rotate every 5 seconds as requested
 
     return () => {
       clearInterval(intervalId);
