@@ -200,15 +200,8 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Auto play - 4 seconds
-let autoPlayInterval = setInterval(nextSlide, 4000);
-
-// Pause auto play on hover or focus
-const sliderSection = document.querySelector('section[aria-label="Featured Projects Slider"]');
-sliderSection.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
-sliderSection.addEventListener('mouseleave', () => autoPlayInterval = setInterval(nextSlide, 4000));
-sliderSection.addEventListener('focusin', () => clearInterval(autoPlayInterval));
-sliderSection.addEventListener('focusout', () => autoPlayInterval = setInterval(nextSlide, 4000));
+// Auto play - 4 seconds (Always active on desktop)
+setInterval(nextSlide, 4000);
 
 // Initialize
 initSlider();
