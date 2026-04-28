@@ -31,7 +31,7 @@ menuToggle.addEventListener('click', toggleMenu);
 mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
 // Slider Data
-const slides = [
+const slidesData = [
     {
         tag: "Featured Project",
         title: "Clinic Log System",
@@ -64,16 +64,14 @@ const dotsContainer = document.getElementById('slider-dots');
 const prevBtn = document.getElementById('prev-slide');
 const nextBtn = document.getElementById('next-slide');
 
-let currentSlide = 0;
+let currentSlide = 1; // Start at 1 because of cloned slide
+let isTransitioning = false;
+const totalSlides = slidesData.length;
 
-function initSlider() {
-    // Create Slides
-    slides.forEach((slide, index) => {
-        const slideEl = document.createElement('div');
-        slideEl.className = 'flex-[0_0_100%] min-w-0 relative h-full flex items-center justify-center bg-gray-950 overflow-hidden';
-        slideEl.setAttribute('role', 'tabpanel');
-        slideEl.setAttribute('aria-hidden', index !== 0);
-        slideEl.innerHTML = `
+function createSlideHTML(slide, index, isClone = false) {
+    return `
+        <div class="flex-[0_0_100%] min-w-0 relative h-full flex items-center justify-center bg-gray-950 overflow-hidden" 
+             role="tabpanel" aria-hidden="${!isClone && index !== 0}">
             <div class="absolute inset-0 z-0">
                 <img src="${slide.image}" alt="${slide.alt}" class="w-full h-full object-cover opacity-50">
                 <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60"></div>
@@ -97,34 +95,54 @@ function initSlider() {
                     </button>
                 </div>
             </div>
-        `;
-        sliderContainer.appendChild(slideEl);
+        </div>
+    `;
+}
 
+function initSlider() {
+    // Clone first and last slides for infinite loop
+    const firstClone = createSlideHTML(slidesData[0], 0, true);
+    const lastClone = createSlideHTML(slidesData[totalSlides - 1], totalSlides - 1, true);
+    
+    let innerHTML = lastClone;
+    slidesData.forEach((slide, index) => {
+        innerHTML += createSlideHTML(slide, index);
+        
         // Create Dot
         const dot = document.createElement('button');
         dot.className = `h-2 transition-all duration-700 rounded-full bg-white/30 hover:bg-white/60 ${index === 0 ? 'w-16 bg-white' : 'w-4'}`;
         dot.setAttribute('role', 'tab');
         dot.setAttribute('aria-selected', index === 0);
         dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
-        dot.addEventListener('click', () => goToSlide(index));
+        dot.addEventListener('click', () => goToSlide(index + 1));
         dotsContainer.appendChild(dot);
     });
+    innerHTML += firstClone;
+    
+    sliderContainer.innerHTML = innerHTML;
+    sliderContainer.classList.add('no-transition');
+    sliderContainer.style.transform = `translateX(-100%)`;
+    
     lucide.createIcons();
 }
 
-function updateSlider() {
+function updateSlider(withTransition = true) {
+    if (!withTransition) {
+        sliderContainer.classList.add('no-transition');
+    } else {
+        sliderContainer.classList.remove('no-transition');
+    }
+    
     sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
     
-    // Update slides visibility for screen readers
-    const slideElements = sliderContainer.querySelectorAll('[role="tabpanel"]');
-    slideElements.forEach((el, index) => {
-        el.setAttribute('aria-hidden', index !== currentSlide);
-    });
+    // Update dots (adjusting for clones)
+    let dotIndex = currentSlide - 1;
+    if (currentSlide === 0) dotIndex = totalSlides - 1;
+    if (currentSlide === totalSlides + 1) dotIndex = 0;
 
-    // Update dots
     const dots = dotsContainer.querySelectorAll('button');
     dots.forEach((dot, index) => {
-        if (index === currentSlide) {
+        if (index === dotIndex) {
             dot.classList.add('w-16', 'bg-white');
             dot.classList.remove('w-4', 'bg-white/30');
             dot.setAttribute('aria-selected', 'true');
@@ -136,18 +154,37 @@ function updateSlider() {
     });
 }
 
+function handleTransitionEnd() {
+    isTransitioning = false;
+    if (currentSlide === 0) {
+        currentSlide = totalSlides;
+        updateSlider(false);
+    } else if (currentSlide === totalSlides + 1) {
+        currentSlide = 1;
+        updateSlider(false);
+    }
+}
+
+sliderContainer.addEventListener('transitionend', handleTransitionEnd);
+
 function goToSlide(index) {
+    if (isTransitioning) return;
+    isTransitioning = true;
     currentSlide = index;
     updateSlider();
 }
 
 function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
+    if (isTransitioning) return;
+    isTransitioning = true;
+    currentSlide++;
     updateSlider();
 }
 
 function prevSlide() {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    if (isTransitioning) return;
+    isTransitioning = true;
+    currentSlide--;
     updateSlider();
 }
 
@@ -163,15 +200,15 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Auto play
-let autoPlayInterval = setInterval(nextSlide, 5000);
+// Auto play - 4 seconds
+let autoPlayInterval = setInterval(nextSlide, 4000);
 
 // Pause auto play on hover or focus
 const sliderSection = document.querySelector('section[aria-label="Featured Projects Slider"]');
 sliderSection.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
-sliderSection.addEventListener('mouseleave', () => autoPlayInterval = setInterval(nextSlide, 5000));
+sliderSection.addEventListener('mouseleave', () => autoPlayInterval = setInterval(nextSlide, 4000));
 sliderSection.addEventListener('focusin', () => clearInterval(autoPlayInterval));
-sliderSection.addEventListener('focusout', () => autoPlayInterval = setInterval(nextSlide, 5000));
+sliderSection.addEventListener('focusout', () => autoPlayInterval = setInterval(nextSlide, 4000));
 
 // Initialize
 initSlider();

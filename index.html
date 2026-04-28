@@ -27,12 +27,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .slider-transition { transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        .no-transition { transition: none !important; }
         .fade-in { animation: fadeIn 1s ease-out forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* Focus styles for accessibility */
         :focus-visible {
             outline: 2px solid #0f172a;
             outline-offset: 2px;
@@ -71,8 +71,8 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="fixed inset-0 z-[105] bg-white translate-y-[-100%] opacity-0 transition-all duration-500 ease-in-out md:hidden pointer-events-none" role="dialog" aria-modal="true">
                 <div class="flex flex-col h-full pt-24 pb-10 px-6">
-                    <div class="space-y-2">
-                        <a href="#" class="mobile-link flex items-center justify-between p-5 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all group">
+                    <div class="space-y-4">
+                        <a href="#" class="mobile-link flex items-center justify-between p-6 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all group">
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-gray-400 group-hover:text-slate-900 shadow-sm">
                                     <i data-lucide="home" aria-hidden="true"></i>
@@ -81,7 +81,7 @@
                             </div>
                             <i data-lucide="chevron-right" class="text-gray-300 group-hover:text-slate-900" aria-hidden="true"></i>
                         </a>
-                        <a href="#projects" class="mobile-link flex items-center justify-between p-5 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all group">
+                        <a href="#projects" class="mobile-link flex items-center justify-between p-6 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all group">
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-gray-400 group-hover:text-slate-900 shadow-sm">
                                     <i data-lucide="briefcase" aria-hidden="true"></i>
@@ -90,7 +90,7 @@
                             </div>
                             <i data-lucide="chevron-right" class="text-gray-300 group-hover:text-slate-900" aria-hidden="true"></i>
                         </a>
-                        <a href="#services" class="mobile-link flex items-center justify-between p-5 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all group">
+                        <a href="#services" class="mobile-link flex items-center justify-between p-6 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all group">
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-gray-400 group-hover:text-slate-900 shadow-sm">
                                     <i data-lucide="settings" aria-hidden="true"></i>
@@ -100,13 +100,12 @@
                             <i data-lucide="chevron-right" class="text-gray-300 group-hover:text-slate-900" aria-hidden="true"></i>
                         </a>
                     </div>
-                    <div class="mt-auto p-6 rounded-3xl bg-slate-900 text-white relative overflow-hidden">
-                        <h4 class="text-xl font-bold mb-2">Ready to start?</h4>
-                        <p class="text-slate-300 text-sm mb-6">Let's build something amazing together.</p>
-                        <button class="w-full bg-white text-slate-900 rounded-xl py-4 font-bold text-lg shadow-xl flex items-center justify-center gap-2">
+                    <div class="mt-auto text-center pb-8">
+                        <button class="w-full bg-slate-900 text-white rounded-2xl py-5 font-bold text-lg shadow-xl flex items-center justify-center gap-2">
                             <i data-lucide="message-square" class="w-5 h-5" aria-hidden="true"></i>
                             Contact Me
                         </button>
+                        <p class="mt-6 text-sm text-gray-400">© 2024 M. Ammar Javed</p>
                     </div>
                 </div>
             </div>
